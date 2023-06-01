@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Orders for {{ email }}</h3>
+    </div>
+  </div>
+</div>
+<hr />
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div *ngFor="let order of pendingOrders; let i = index">
+        <table class="table-responsive">
+          <tr>
+            <td>Date: {{ order.date | date }}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>OrderId: {{ order.orderId }}</td>
+            <td>
+              &nbsp;
+              <button
+                type="button"
+                (click)="onDelivered(i)"
+                class="btn btn-success"
+              >
+                Delivered
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{ order.total | currency : "SGD" : "symbol-narrow" }}
+            </td>
+            <td></td>
+          </tr>
+        </table>
+        <hr />
+      </div>
+      <button type="button" [routerLink]="['/']" class="btn btn-primary">
+        Back to Ordering
+      </button>
+    </div>
+  </div>
+</div>

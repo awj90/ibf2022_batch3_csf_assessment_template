@@ -23,3 +23,7 @@
 tr {
   height: 7vh;
 }
+
+.error {
+  color: red;
+}

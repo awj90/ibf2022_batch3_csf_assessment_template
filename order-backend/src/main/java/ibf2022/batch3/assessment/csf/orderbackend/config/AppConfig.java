@@ -12,14 +12,20 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class AppConfig {
 
-	@Value("${redis.host}")
+	@Value("${spring.data.redis.host}")
 	private String redisHost;
 
-	@Value("${redis.port}")
+	@Value("${spring.data.redis.port}")
 	private Integer redisPort;
 
 	@Value("${redis.database}")
 	private Integer redisDB;
+
+	@Value("${spring.data.redis.username}")
+    private String redisUsername;
+
+    @Value("${spring.data.redis.password}")
+    private String redisPassword;
 
 	// Warning: Do not modify the createTemplate() method; either its method signature 
 	// or its logic. Changing any of these will render any of your assessment task using
@@ -28,6 +34,11 @@ public class AppConfig {
 	public RedisTemplate<String, String> createRedisTemplate() {
 		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisHost, redisPort);
 		config.setDatabase(redisDB);
+
+		if(!redisUsername.isEmpty() && !redisPassword.isEmpty()){
+            config.setUsername(redisUsername);
+            config.setPassword(redisPassword);
+        }
 
 		JedisClientConfiguration jedisClient = JedisClientConfiguration
 				.builder().build();
